@@ -1,0 +1,21 @@
+/*
+Theme Name:  Dallas Web Pro
+Theme URI:   https://dallaswebpro.net
+Author:      Jerry Schrader
+Author URI:  https://jerryschraderconsulting.com
+Description: Custom theme for Dallas Web Pro — Earned Authority design system. Built with ACF Pro, Forminator Pro, and clean WordPress conventions. No page builder.
+Version:     1.0.0
+License:     Private
+Text Domain: dallaswebpro
+Tags:        custom-logo, custom-menu, full-width-template, post-thumbnails, featured-images
+*/
+
+/*
+ * This file intentionally contains only the theme header.
+ * All styles are loaded via wp_enqueue_style() in functions.php.
+ * See /assets/css/ for:
+ *   tokens.css      — design tokens (CSS custom properties)
+ *   global.css      — reset, base, typography, utility classes
+ *   components.css  — buttons, cards, form elements
+ *   layout.css      — nav, hero, sections, trust bar, footer
+ */

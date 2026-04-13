@@ -1,0 +1,132 @@
+[{
+  "form_name": "Dallas Web Pro — Discovery Call",
+  "settings": {
+    "formName": "Dallas Web Pro — Discovery Call",
+    "honeypot": "true",
+    "submit-type": "default",
+    "form-type": "default",
+    "enable-ajax": "true",
+    "validation-inline": "true",
+    "submitData": {
+      "custom-submit-text": "Book My Discovery Call",
+      "custom-invalid-form-message": "Please check the form and try again."
+    }
+  },
+  "fields": [
+    {
+      "element_id": "text-1",
+      "type": "text",
+      "cols": "6",
+      "field_label": "Your Name",
+      "placeholder": "John Smith",
+      "required": "true",
+      "required_message": "Please enter your name."
+    },
+    {
+      "element_id": "text-2",
+      "type": "text",
+      "cols": "6",
+      "field_label": "Business Name",
+      "placeholder": "Smith Plumbing LLC",
+      "required": "false"
+    },
+    {
+      "element_id": "email-1",
+      "type": "email",
+      "cols": "6",
+      "field_label": "Email Address",
+      "placeholder": "john@yourbusiness.com",
+      "required": "true",
+      "required_message": "Please enter a valid email address."
+    },
+    {
+      "element_id": "phone-1",
+      "type": "phone",
+      "cols": "6",
+      "field_label": "Phone Number",
+      "placeholder": "(214) 555-0100",
+      "required": "false"
+    },
+    {
+      "element_id": "select-1",
+      "type": "select",
+      "cols": "12",
+      "field_label": "I'm Interested In",
+      "required": "false",
+      "options": [
+        { "label": "Select a service...",         "value": "",                           "default": "true"  },
+        { "label": "Custom Website Development",  "value": "Custom Website Development", "default": "false" },
+        { "label": "Search Engine Optimization",  "value": "Search Engine Optimization", "default": "false" },
+        { "label": "Branding and Identity",       "value": "Branding and Identity",      "default": "false" },
+        { "label": "Social Media and Content",    "value": "Social Media and Content",   "default": "false" },
+        { "label": "Analytics and Reporting",     "value": "Analytics and Reporting",    "default": "false" },
+        { "label": "Strategy and Consultation",   "value": "Strategy and Consultation",  "default": "false" },
+        { "label": "Full Digital Package",        "value": "Full Digital Package",       "default": "false" },
+        { "label": "Not sure yet - let's talk",  "value": "Not sure yet",               "default": "false" }
+      ]
+    },
+    {
+      "element_id": "select-2",
+      "type": "select",
+      "cols": "6",
+      "field_label": "Preferred Day",
+      "required": "false",
+      "options": [
+        { "label": "Any day works", "value": "Any day works", "default": "true"  },
+        { "label": "Monday",        "value": "Monday",        "default": "false" },
+        { "label": "Tuesday",       "value": "Tuesday",       "default": "false" },
+        { "label": "Wednesday",     "value": "Wednesday",     "default": "false" },
+        { "label": "Thursday",      "value": "Thursday",      "default": "false" },
+        { "label": "Friday",        "value": "Friday",        "default": "false" }
+      ]
+    },
+    {
+      "element_id": "select-3",
+      "type": "select",
+      "cols": "6",
+      "field_label": "Preferred Time",
+      "required": "false",
+      "options": [
+        { "label": "Any time works",         "value": "Any time works", "default": "true"  },
+        { "label": "Morning (9am - 12pm)",   "value": "Morning",        "default": "false" },
+        { "label": "Afternoon (12pm - 5pm)", "value": "Afternoon",      "default": "false" },
+        { "label": "Evening (5pm - 7pm)",    "value": "Evening",        "default": "false" }
+      ]
+    },
+    {
+      "element_id": "textarea-1",
+      "type": "textarea",
+      "cols": "12",
+      "field_label": "Tell Us About Your Project",
+      "placeholder": "What's your business, what's not working online, and what does success look like for you?",
+      "required": "false",
+      "rows": "5"
+    },
+    {
+      "element_id": "submit-1",
+      "type": "submit",
+      "cols": "12",
+      "field_label": "Book My Discovery Call",
+      "btn_style": "default",
+      "btn_size": "default",
+      "btn_alignment": "left"
+    }
+  ],
+  "emails": [
+    {
+      "email-name": "Admin Notification",
+      "email-address": "contact@dallaswebpro.com",
+      "email-subject": "New Discovery Call Request from {text-1}",
+      "email-sender-name": "Dallas Web Pro Website",
+      "email-main-sending-data": "true",
+      "email-type": "admin"
+    }
+  ],
+  "thankyou": [
+    {
+      "type": "message",
+      "message": "<h3>We got your message!</h3><p>We will reach out within one business day to schedule your discovery call. Talk soon.</p>"
+    }
+  ],
+  "version": "1.17"
+}]

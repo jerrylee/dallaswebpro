@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumé — Premium Home Cleaning · Dallas · Fort Worth</title>
+  
+  
+  <link rel="stylesheet" href="fonts/fonts.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ivory:    #FAF7F2;
+      --cream:    #F0EBE1;
+      --green:    #1A2E22;
+      --green-mid:#2E4D38;
+      --copper:   #C8956C;
+      --copper-lt:#E8C4A4;
+      --sage:     #8FA99A;
+      --warm-gray:#8C857C;
+      --text:     #1A1918;
+      --text-lt:  #6B6360;
+      --white:    #FFFFFF;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Outfit', sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--ivory); color: var(--text); font-family: var(--sans); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+    img { display: block; width: 100%; object-fit: cover; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--copper-lt); border-radius: 10px; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.12s; }
+    .d2 { transition-delay: 0.24s; }
+    .d3 { transition-delay: 0.36s; }
+    .d4 { transition-delay: 0.48s; }
+
+    .tag { display: inline-block; font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 20px; }
+    .tag::before { content: '— '; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 28px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled { background: rgba(250,247,242,0.96); backdrop-filter: blur(14px); padding: 16px 48px; box-shadow: 0 1px 0 rgba(0,0,0,0.06); }
+    .nav-logo { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--white); text-decoration: none; transition: color 0.4s; flex-shrink: 0; }
+    nav.scrolled .nav-logo { color: var(--green); }
+    .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+    .nav-links a { font-size: 12px; font-weight: 400; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.3s; }
+    nav.scrolled .nav-links a { color: var(--text-lt); }
+    .nav-links a:hover, nav.scrolled .nav-links a:hover { color: var(--copper); }
+    .nav-cta { background: var(--copper) !important; color: var(--white) !important; padding: 10px 22px; border-radius: 2px; }
+    .nav-cta:hover { background: var(--green) !important; }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--white); transition: background 0.3s, transform 0.3s, opacity 0.3s; }
+    nav.scrolled .hamburger span { background: var(--green); }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile overlay menu */
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; background: var(--green); z-index: 99;
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s;
+    }
+    .mobile-nav.open { opacity: 1; pointer-events: all; }
+    .mobile-nav a { font-family: var(--serif); font-size: 38px; font-weight: 300; color: var(--white); text-decoration: none; transition: color 0.3s; }
+    .mobile-nav a:hover { color: var(--copper-lt); }
+    .mobile-nav .m-cta { font-family: var(--sans) !important; font-size: 12px !important; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; background: var(--copper); padding: 14px 36px; border-radius: 2px; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    .hero { position: relative; height: 100vh; min-height: 640px; display: flex; align-items: flex-end; overflow: hidden; }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('images/hero-bg.jpg') center 30% / cover;
+      transform: scale(1.05);
+      animation: hzoom 12s ease-out forwards;
+    }
+    @keyframes hzoom { from { transform: scale(1.05); } to { transform: scale(1); } }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,18,13,0.18) 0%, rgba(10,18,13,0.08) 35%, rgba(10,18,13,0.78) 100%); }
+    .hero-inner {
+      position: relative; z-index: 2;
+      width: 100%; max-width: 1280px; margin: 0 auto;
+      padding: 0 48px 100px;
+      display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: flex-end;
+    }
+    .hero-headline { font-family: var(--serif); font-size: clamp(52px, 6vw, 96px); font-weight: 300; line-height: 1.0; color: var(--white); animation: htext 1.2s var(--ease) 0.3s both; }
+    .hero-headline em { font-style: italic; color: var(--copper-lt); }
+    @keyframes htext { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-sub { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 440px; margin-top: 20px; line-height: 1.8; animation: htext 1.2s var(--ease) 0.5s both; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 32px; animation: htext 1.2s var(--ease) 0.7s both; }
+    .hero-badges span { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 8px; }
+    .hero-badges span::before { content: ''; width: 18px; height: 1px; background: var(--copper); }
+
+    /* Booking card */
+    .hero-card { background: var(--white); border-radius: 3px; padding: 36px 32px; animation: hcard 1.2s var(--ease) 0.6s both; box-shadow: 0 30px 80px rgba(10,18,13,0.35); }
+    @keyframes hcard { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .card-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 10px; }
+    .card-title { font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--green); line-height: 1.2; margin-bottom: 24px; }
+    .ff { margin-bottom: 14px; }
+    .ff label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-lt); margin-bottom: 7px; }
+    .ff select, .ff input { width: 100%; border: 1px solid var(--cream); background: var(--ivory); padding: 12px 14px; font-family: var(--sans); font-size: 13px; font-weight: 300; color: var(--text); border-radius: 2px; outline: none; transition: border-color 0.3s; appearance: none; }
+    .ff select:focus, .ff input:focus { border-color: var(--copper); }
+    .ff-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-primary { width: 100%; background: var(--green); color: var(--white); border: none; padding: 16px 24px; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; border-radius: 2px; cursor: pointer; margin-top: 8px; transition: background 0.3s; }
+    .btn-primary:hover { background: var(--copper); }
+    .card-note { text-align: center; font-size: 11px; color: var(--warm-gray); margin-top: 12px; }
+
+    /* ── TRUST BAR ── */
+    .trust-bar { background: var(--green); padding: 26px 48px; }
+    .trust-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .trust-item { display: flex; align-items: center; gap: 16px; }
+    .trust-icon { flex-shrink: 0; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; }
+    /* All trust SVGs share these base styles */
+    .trust-icon svg { width: 34px; height: 34px; stroke: var(--copper); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .trust-text strong { display: block; font-size: 14px; font-weight: 600; color: var(--white); line-height: 1.2; }
+    .trust-text span { font-size: 11px; color: var(--sage); letter-spacing: 0.04em; }
+    .trust-div { width: 1px; height: 36px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+
+    /* ── INTRO ── */
+    .intro-wrap { padding: 120px 48px 80px; max-width: 1280px; margin: 0 auto; }
+    .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .intro h2 { font-family: var(--serif); font-size: clamp(34px, 3.5vw, 56px); font-weight: 300; line-height: 1.15; color: var(--green); margin-bottom: 28px; }
+    .intro h2 em { font-style: italic; color: var(--copper); }
+    .intro p { font-size: 15px; line-height: 1.85; color: var(--text-lt); margin-bottom: 18px; }
+    .btn-outline { display: inline-block; border: 1px solid var(--green); color: var(--green); padding: 13px 28px; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; border-radius: 2px; margin-top: 12px; transition: background 0.3s, color 0.3s; }
+    .btn-outline:hover { background: var(--green); color: var(--white); }
+    .intro-imgs { position: relative; height: 560px; }
+    .intro-main { position: absolute; top: 0; right: 0; width: 78%; height: 88%; border-radius: 3px; overflow: hidden; }
+    .intro-float { position: absolute; bottom: 0; left: 0; width: 52%; height: 48%; border-radius: 3px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.18); border: 6px solid var(--ivory); }
+    .intro-stat { position: absolute; top: 50%; right: -20px; transform: translateY(-50%); background: var(--copper); color: var(--white); padding: 22px 26px; border-radius: 3px; text-align: center; box-shadow: 0 16px 40px rgba(200,149,108,0.4); }
+    .intro-stat strong { display: block; font-family: var(--serif); font-size: 42px; font-weight: 300; line-height: 1; }
+    .intro-stat span { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85; }
+
+    /* ── SERVICES ── */
+    .services { background: var(--green); padding: 100px 48px; position: relative; overflow: hidden; }
+    .services::before { content: 'SERVICES'; position: absolute; top: -30px; left: -20px; font-family: var(--serif); font-size: 200px; font-weight: 300; color: rgba(255,255,255,0.025); letter-spacing: -0.05em; pointer-events: none; line-height: 1; }
+    .services-inner { max-width: 1280px; margin: 0 auto; }
+    .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; gap: 40px; }
+    .services-header h2 { font-family: var(--serif); font-size: clamp(34px, 3.5vw, 56px); font-weight: 300; color: var(--white); line-height: 1.15; }
+    .services-header h2 em { font-style: italic; color: var(--copper-lt); }
+    .services-header p { font-size: 14px; color: var(--sage); max-width: 260px; text-align: right; line-height: 1.75; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .svc { background: var(--green-mid); padding: 48px 40px; position: relative; overflow: hidden; cursor: pointer; transition: background 0.4s; }
+    .svc::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--copper); transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease); }
+    .svc:hover { background: rgba(46,77,56,0.85); }
+    .svc:hover::after { transform: scaleX(1); }
+    .svc-num { font-family: var(--serif); font-size: 72px; font-weight: 300; color: rgba(255,255,255,0.06); line-height: 1; margin-bottom: -10px; }
+    .svc-name { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--white); line-height: 1.2; margin-bottom: 14px; }
+    .svc-desc { font-size: 13.5px; color: var(--sage); line-height: 1.75; margin-bottom: 28px; }
+    .svc-list { list-style: none; margin-bottom: 32px; }
+    .svc-list li { font-size: 12px; color: rgba(255,255,255,0.5); padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; gap: 10px; }
+    .svc-list li::before { content: ''; width: 14px; height: 1px; background: var(--copper); flex-shrink: 0; }
+    .svc-price { font-family: var(--serif); font-size: 14px; color: var(--copper-lt); letter-spacing: 0.05em; }
+    .svc.featured { background: var(--copper); }
+    .svc.featured:hover { background: #b87d5a; }
+    .svc.featured .svc-num { color: rgba(255,255,255,0.1); }
+    .svc.featured .svc-desc { color: rgba(255,255,255,0.82); }
+    .svc.featured .svc-list li { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.2); }
+    .svc.featured .svc-list li::before { background: var(--white); }
+    .svc.featured .svc-price { color: var(--white); }
+    .svc.featured::after { background: var(--white); }
+    .f-badge { display: inline-block; background: rgba(255,255,255,0.2); font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); padding: 4px 10px; border-radius: 2px; margin-bottom: 14px; }
+
+    /* ── HOW IT WORKS ── */
+    .how { padding: 120px 48px; }
+    .how-inner { max-width: 1280px; margin: 0 auto; }
+    .sec-center { text-align: center; margin-bottom: 72px; }
+    .sec-center h2 { font-family: var(--serif); font-size: clamp(34px, 3.5vw, 56px); font-weight: 300; color: var(--green); line-height: 1.15; }
+    .sec-center h2 em { font-style: italic; color: var(--copper); }
+    .sec-center p { font-size: 15px; color: var(--text-lt); max-width: 500px; margin: 16px auto 0; line-height: 1.8; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
+    .steps::before { content: ''; position: absolute; top: 44px; left: 12.5%; right: 12.5%; height: 1px; background: linear-gradient(to right, transparent, var(--copper-lt), var(--copper-lt), transparent); }
+    .step { padding: 0 24px; text-align: center; position: relative; }
+    .step-circle { width: 88px; height: 88px; border-radius: 50%; background: var(--ivory); border: 1px solid var(--copper-lt); display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; position: relative; z-index: 1; transition: background 0.3s, border-color 0.3s; }
+    .step:hover .step-circle { background: var(--copper); border-color: var(--copper); }
+    .step-num { font-family: var(--serif); font-size: 30px; font-weight: 300; color: var(--green); transition: color 0.3s; }
+    .step:hover .step-num { color: var(--white); }
+    .step h3 { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--green); margin-bottom: 12px; }
+    .step p { font-size: 13.5px; color: var(--text-lt); line-height: 1.75; }
+
+    /* ── GALLERY ── */
+    .gallery { padding: 0 48px 120px; max-width: 1280px; margin: 0 auto; }
+    .gallery-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 300px 300px; gap: 10px; }
+    .g-item { overflow: hidden; border-radius: 3px; position: relative; }
+    .g-item img { height: 100%; transition: transform 0.7s var(--ease); }
+    .g-item:hover img { transform: scale(1.06); }
+    .g-item:first-child { grid-row: span 2; }
+    .g-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,46,34,0.5) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
+    .g-item:hover .g-overlay { opacity: 1; }
+    .g-label { position: absolute; bottom: 20px; left: 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); opacity: 0; transform: translateY(8px); transition: opacity 0.4s, transform 0.4s; }
+    .g-item:hover .g-label { opacity: 1; transform: translateY(0); }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--cream); padding: 120px 48px; }
+    .test-inner { max-width: 1280px; margin: 0 auto; }
+    .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 64px; }
+    .t-card { background: var(--white); padding: 40px 36px; border-radius: 3px; transition: transform 0.4s var(--ease), box-shadow 0.4s; }
+    .t-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.1); }
+    .t-quote { font-family: var(--serif); font-size: 80px; font-weight: 300; color: var(--copper-lt); line-height: 0.8; margin-bottom: 20px; }
+    .t-text { font-family: var(--serif); font-size: 18px; font-style: italic; line-height: 1.65; color: var(--green); margin-bottom: 28px; }
+    .t-stars { color: var(--copper); margin-bottom: 16px; letter-spacing: 2px; }
+    .t-author { display: flex; align-items: center; gap: 14px; }
+    .t-avatar { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+    .t-avatar img { height: 46px; border-radius: 50%; }
+    .t-name { font-size: 13px; font-weight: 600; color: var(--text); }
+    .t-loc { font-size: 11px; color: var(--warm-gray); margin-top: 3px; }
+    .t-card.dark { background: var(--green); }
+    .dark .t-quote { color: rgba(200,149,108,0.28); }
+    .dark .t-text { color: var(--white); }
+    .dark .t-name { color: var(--white); }
+    .dark .t-loc { color: var(--sage); }
+    .dark .t-stars { color: var(--copper-lt); }
+
+    /* ── SERVICE AREA ── */
+    .area-wrap { padding: 100px 48px; max-width: 1280px; margin: 0 auto; }
+    .area-box { background: var(--green); border-radius: 4px; padding: 72px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; overflow: hidden; }
+    .area-box::before { content: 'DALLAS'; position: absolute; right: -30px; bottom: -60px; font-family: var(--serif); font-size: 180px; font-weight: 300; color: rgba(255,255,255,0.025); pointer-events: none; line-height: 1; }
+    .area-text h2 { font-family: var(--serif); font-size: clamp(30px, 3vw, 48px); font-weight: 300; color: var(--white); line-height: 1.2; margin-bottom: 20px; }
+    .area-text h2 em { font-style: italic; color: var(--copper-lt); }
+    .area-text p { font-size: 14px; color: var(--sage); line-height: 1.8; margin-bottom: 32px; }
+    .btn-light { display: inline-block; border: 1px solid rgba(255,255,255,0.3); color: var(--white); padding: 13px 28px; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.3s, border-color 0.3s; }
+    .btn-light:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+    .cities { display: grid; grid-template-columns: 1fr 1fr; }
+    .city { padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 13px; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 10px; transition: color 0.3s; }
+    .city:hover { color: var(--copper-lt); }
+    .city::before { content: ''; width: 14px; height: 1px; background: var(--copper); flex-shrink: 0; }
+
+    /* ── CTA ── */
+    .cta-section { position: relative; padding: 140px 48px; text-align: center; overflow: hidden; }
+    .cta-bg { position: absolute; inset: 0; background: url('images/cta-bg.jpg') center / cover; }
+    .cta-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,46,34,0.93), rgba(26,46,34,0.85)); }
+    .cta-inner { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+    .cta-inner h2 { font-family: var(--serif); font-size: clamp(36px, 4.5vw, 68px); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
+    .cta-inner h2 em { font-style: italic; color: var(--copper-lt); }
+    .cta-inner p { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 40px; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-ca { background: var(--copper); color: var(--white); padding: 18px 36px; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.3s; }
+    .btn-ca:hover { background: #b07c58; }
+    .btn-cb { border: 1px solid rgba(255,255,255,0.35); color: var(--white); padding: 18px 36px; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.3s; }
+    .btn-cb:hover { background: rgba(255,255,255,0.1); }
+    .cta-fine { margin-top: 28px; font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+
+    /* ── FOOTER ── */
+    footer { background: #0F1A12; padding: 80px 48px 40px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 40px; }
+    .footer-logo { font-family: var(--serif); font-size: 34px; font-weight: 300; color: var(--white); margin-bottom: 16px; }
+    .footer-tag { font-size: 13px; color: var(--sage); line-height: 1.75; max-width: 240px; margin-bottom: 28px; }
+    .footer-social { display: flex; gap: 12px; }
+    .soc { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--sage); font-size: 12px; font-weight: 600; text-decoration: none; transition: border-color 0.3s, color 0.3s; }
+    .soc:hover { border-color: var(--copper); color: var(--copper); }
+    .footer-col h4 { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--copper); margin-bottom: 22px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .f-contact { display: flex; gap: 10px; margin-bottom: 14px; font-size: 13px; color: rgba(255,255,255,0.45); }
+    .f-contact strong { color: rgba(255,255,255,0.75); font-weight: 400; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.22); }
+    .footer-bottom a { color: rgba(255,255,255,0.35); text-decoration: none; margin-left: 20px; font-size: 12px; transition: color 0.3s; }
+    .footer-bottom a:hover { color: var(--copper); }
+
+    /* Float phone */
+    .fab { position: fixed; bottom: 32px; right: 32px; z-index: 200; background: var(--copper); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 28px rgba(200,149,108,0.55); text-decoration: none; transition: transform 0.3s, background 0.3s; }
+    .fab:hover { transform: scale(1.1); background: var(--green); }
+    .fab svg { width: 22px; height: 22px; stroke: var(--white); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+
+    /* Tablet — 1024px */
+    @media (max-width: 1024px) {
+      nav { padding: 22px 32px; }
+      nav.scrolled { padding: 14px 32px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-nav { display: flex; }
+
+      .hero-inner { grid-template-columns: 1fr; padding: 0 32px 80px; gap: 40px; }
+      .hero-card { display: none; }
+
+      .trust-bar { padding: 20px 32px; }
+      .trust-div { display: none; }
+      .trust-inner { gap: 16px; }
+
+      .intro-wrap { padding: 80px 32px 60px; }
+      .intro { grid-template-columns: 1fr; gap: 60px; }
+      .intro-imgs { height: 400px; }
+      .intro-stat { right: 0; }
+
+      .services { padding: 80px 32px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .services-header { flex-direction: column; align-items: flex-start; }
+      .services-header p { text-align: left; max-width: 100%; }
+
+      .how { padding: 80px 32px; }
+      .steps { grid-template-columns: repeat(2, 1fr); gap: 48px; }
+      .steps::before { display: none; }
+      .step { padding: 0; }
+
+      .gallery { padding: 0 32px 80px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px 220px; }
+      .g-item:first-child { grid-row: span 1; }
+
+      .testimonials { padding: 80px 32px; }
+      .test-grid { grid-template-columns: 1fr; gap: 20px; }
+
+      .area-wrap { padding: 60px 32px; }
+      .area-box { grid-template-columns: 1fr; gap: 40px; padding: 52px 48px; }
+
+      .cta-section { padding: 100px 32px; }
+
+      footer { padding: 60px 32px 32px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    /* Mobile — 768px */
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      nav.scrolled { padding: 14px 24px; }
+
+      .hero-inner { padding: 0 24px 72px; }
+      .hero-headline { font-size: clamp(40px, 10vw, 60px); }
+
+      .trust-bar { padding: 20px 24px; }
+      .trust-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; justify-items: start; }
+
+      .intro-wrap { padding: 72px 24px 48px; }
+      .intro-imgs { height: 320px; }
+      .intro-main { width: 85%; height: 80%; }
+      .intro-float { width: 55%; height: 50%; }
+      .intro-stat { right: -8px; padding: 16px 18px; }
+      .intro-stat strong { font-size: 32px; }
+
+      .services { padding: 72px 24px; }
+      .svc { padding: 36px 28px; }
+
+      .how { padding: 72px 24px; }
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+
+      .gallery { padding: 0 24px 72px; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 220px); }
+
+      .testimonials { padding: 72px 24px; }
+
+      .area-wrap { padding: 48px 24px; }
+      .area-box { padding: 40px 28px; }
+      .area-box::before { display: none; }
+      .cities { grid-template-columns: 1fr 1fr; }
+
+      .cta-section { padding: 80px 24px; }
+      .cta-btns { flex-direction: column; align-items: center; }
+      .btn-ca, .btn-cb { width: 100%; max-width: 320px; text-align: center; }
+
+      footer { padding: 56px 24px 28px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-bottom a { margin-left: 12px; }
+
+      .fab { bottom: 24px; right: 24px; width: 50px; height: 50px; }
+    }
+
+    /* Small mobile — 480px */
+    @media (max-width: 480px) {
+      .hero-headline { font-size: clamp(36px, 11vw, 50px); }
+      .hero-badges { flex-direction: column; gap: 10px; }
+      .trust-inner { grid-template-columns: 1fr; }
+      .intro-imgs { height: 260px; }
+      .intro-stat { display: none; }
+      .svc { padding: 28px 22px; }
+      .svc-num { font-size: 52px; }
+      .sec-center { margin-bottom: 48px; }
+      .gallery-grid { grid-template-rows: repeat(5, 180px); }
+      .area-box { padding: 32px 22px; }
+      .cities { grid-template-columns: 1fr; }
+      .cta-inner h2 { font-size: clamp(30px, 9vw, 44px); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Lumé</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#area">Service Area</a></li>
+    <li><a href="#book" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" id="hbg" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#services" class="ml">Services</a>
+  <a href="#how" class="ml">How It Works</a>
+  <a href="#testimonials" class="ml">Reviews</a>
+  <a href="#area" class="ml">Service Area</a>
+  <a href="#book" class="ml m-cta">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-headline">Your home,<br><em>finally</em><br>at rest.</h1>
+      <p class="hero-sub">Premium residential cleaning for Dallas–Fort Worth's most discerning homeowners. Trusted, consistent, and designed around your life.</p>
+      <div class="hero-badges">
+        <span>Insured &amp; Bonded</span>
+        <span>Background Checked</span>
+        <span>Satisfaction Guaranteed</span>
+      </div>
+    </div>
+    <div class="hero-card" id="book">
+      <div class="card-eyebrow">Get a Free Estimate</div>
+      <div class="card-title">Book your first clean today</div>
+      <div class="ff"><label>Service Type</label><select><option>Standard Clean</option><option>Deep Clean</option><option>Move In / Move Out</option><option>Post-Construction</option></select></div>
+      <div class="ff-row">
+        <div class="ff"><label>Bedrooms</label><select><option>1 Bed</option><option>2 Beds</option><option>3 Beds</option><option>4+ Beds</option></select></div>
+        <div class="ff"><label>Bathrooms</label><select><option>1 Bath</option><option>2 Baths</option><option>3 Baths</option><option>4+ Baths</option></select></div>
+      </div>
+      <div class="ff"><label>Your Zip Code</label><input type="text" placeholder="75013" /></div>
+      <div class="ff"><label>Preferred Date</label><input type="date" /></div>
+      <button class="btn-primary">Get My Free Quote →</button>
+      <p class="card-note">No credit card required · Responds within 2 hours</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR — custom SVG icons, no emoji -->
+<div class="trust-bar">
+  <div class="trust-inner">
+
+    <div class="trust-item">
+      <div class="trust-icon">
+        <!-- Award ribbon -->
+        <svg viewBox="0 0 38 38" stroke-width="1.3" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="19" cy="14" r="9"/>
+          <circle cx="19" cy="14" r="4.5"/>
+          <polyline points="13.5,21.5 10.5,33 19,28.5 27.5,33 24.5,21.5"/>
+        </svg>
+      </div>
+      <div class="trust-text"><strong>Best of DFW 2024</strong><span>Home Cleaning Category</span></div>
+    </div>
+
+    <div class="trust-div"></div>
+
+    <div class="trust-item">
+      <div class="trust-icon">
+        <!-- Five-point star, single large one -->
+        <svg viewBox="0 0 38 38" stroke-width="1.3" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="19,5 22.9,14.5 33.5,15.5 26,22.5 28.2,33 19,27.8 9.8,33 12,22.5 4.5,15.5 15.1,14.5"/>
+        </svg>
+      </div>
+      <div class="trust-text"><strong>4.9 / 5.0 Rating</strong><span>Based on 847 reviews</span></div>
+    </div>
+
+    <div class="trust-div"></div>
+
+    <div class="trust-item">
+      <div class="trust-icon">
+        <!-- Shield with check -->
+        <svg viewBox="0 0 38 38" stroke-width="1.3" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 4 L33 9.5 L33 20 C33 27.5 26.5 33.5 19 35.5 C11.5 33.5 5 27.5 5 20 L5 9.5 Z"/>
+          <polyline points="13,19 17,23 25,15" stroke-width="1.6"/>
+        </svg>
+      </div>
+      <div class="trust-text"><strong>Fully Insured</strong><span>Bonded &amp; Background Checked</span></div>
+    </div>
+
+    <div class="trust-div"></div>
+
+    <div class="trust-item">
+      <div class="trust-icon">
+        <!-- Minimal house -->
+        <svg viewBox="0 0 38 38" stroke-width="1.3" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="4,19 19,6 34,19"/>
+          <path d="M8,17 L8,32 L15,32 L15,25 L23,25 L23,32 L30,32 L30,17"/>
+          <line x1="19" y1="6" x2="19" y2="6"/>
+        </svg>
+      </div>
+      <div class="trust-text"><strong>2,400+ Homes</strong><span>Cleaned Across DFW Since 2018</span></div>
+    </div>
+
+    <div class="trust-div"></div>
+
+    <div class="trust-item">
+      <div class="trust-icon">
+        <!-- Organic leaf -->
+        <svg viewBox="0 0 38 38" stroke-width="1.3" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7,31 C7,31 10,17 19,12 C28,7 32,7 32,7 C32,7 32,12 28.5,18.5 C25,25 17,27 13,28.5"/>
+          <path d="M7,31 C9.5,26 12,21 17,18" stroke-width="1.3"/>
+        </svg>
+      </div>
+      <div class="trust-text"><strong>Eco-Friendly</strong><span>Non-Toxic, Safe for Pets &amp; Kids</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- INTRO -->
+<section style="overflow:hidden;">
+  <div class="intro-wrap">
+    <div class="intro">
+      <div class="reveal">
+        <div class="tag">About Lumé</div>
+        <h2>Cleaning isn't a chore.<br>It's <em>care</em> for your home.</h2>
+        <p>At Lumé, we believe a clean home is more than tidy surfaces — it's the foundation of a calm, intentional life. That's why we treat every home we clean as if it were our own.</p>
+        <p>Our teams are trained, trusted, and consistent. You'll see the same familiar faces, using the same meticulous process, every single time.</p>
+        <a href="#services" class="btn-outline">Explore Our Services</a>
+      </div>
+      <div class="intro-imgs reveal d1">
+        <div class="intro-main"><img src="images/intro-main.jpg" alt="Beautiful clean home interior" style="height:100%;"/></div>
+        <div class="intro-float"><img src="images/intro-float.jpg" alt="Professional cleaner at work" style="height:100%;"/></div>
+        <div class="intro-stat"><strong>98%</strong><span>Client<br>Retention</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="services-header reveal">
+      <div>
+        <div class="tag" style="color:var(--copper-lt);">What We Offer</div>
+        <h2>Every home deserves<br><em>its own</em> clean.</h2>
+      </div>
+      <p>Choose the service level that fits your home and your lifestyle. All cleans include our satisfaction guarantee.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc reveal">
+        <div class="svc-num">01</div>
+        <div class="svc-name">Standard Clean</div>
+        <p class="svc-desc">Our most popular service — a thorough, top-to-bottom clean of your entire home. Perfect for weekly or bi-weekly visits.</p>
+        <ul class="svc-list">
+          <li>All rooms, dusted &amp; vacuumed</li>
+          <li>Kitchen surfaces &amp; appliance exteriors</li>
+          <li>Full bathroom sanitization</li>
+          <li>Floor mopping &amp; baseboards</li>
+          <li>Trash removal &amp; linen change</li>
+        </ul>
+        <div class="svc-price">Starting at $149 · Weekly &amp; bi-weekly available</div>
+      </div>
+      <div class="svc featured reveal d1">
+        <span class="f-badge">Most Popular</span>
+        <div class="svc-num">02</div>
+        <div class="svc-name">Deep Clean</div>
+        <p class="svc-desc">Ideal for first-time clients or seasonal resets. We go where regular cleaners don't — inside cabinets, behind appliances, every corner.</p>
+        <ul class="svc-list">
+          <li>Everything in Standard Clean, plus:</li>
+          <li>Inside oven, fridge &amp; microwave</li>
+          <li>Interior cabinet &amp; drawer cleaning</li>
+          <li>Grout scrubbing &amp; tile detailing</li>
+          <li>Window sill &amp; blind cleaning</li>
+        </ul>
+        <div class="svc-price">Starting at $249 · Recommended first visit</div>
+      </div>
+      <div class="svc reveal d2">
+        <div class="svc-num">03</div>
+        <div class="svc-name">Move In / Move Out</div>
+        <p class="svc-desc">Starting fresh or leaving it better than you found it. Our move cleaning is designed to get every last detail perfect.</p>
+        <ul class="svc-list">
+          <li>Complete deep clean of entire home</li>
+          <li>All appliances inside &amp; out</li>
+          <li>Full cabinet &amp; closet cleaning</li>
+          <li>Garage sweep &amp; wipe-down</li>
+          <li>Deposit-back guarantee</li>
+        </ul>
+        <div class="svc-price">Starting at $299 · Available 7 days a week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="sec-center reveal">
+      <div class="tag">Simple Process</div>
+      <h2>From booking to<br><em>spotless</em> in four steps.</h2>
+      <p>We've removed every friction point. Booking takes two minutes, and we handle everything from there.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-circle"><div class="step-num">1</div></div><h3>Get a Quote</h3><p>Fill out our quick form. We'll send your personalized estimate within 2 hours — no surprise fees.</p></div>
+      <div class="step reveal d1"><div class="step-circle"><div class="step-num">2</div></div><h3>Choose Your Schedule</h3><p>Pick the date, time, and frequency that works for you. One-time or recurring — we work around your life.</p></div>
+      <div class="step reveal d2"><div class="step-circle"><div class="step-num">3</div></div><h3>We Show Up</h3><p>Your dedicated team arrives on time, fully equipped, and follows your custom clean checklist to the letter.</p></div>
+      <div class="step reveal d3"><div class="step-circle"><div class="step-num">4</div></div><h3>Enjoy Your Home</h3><p>Come home to that feeling. You'll never have to think about cleaning again — that's our job.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery reveal">
+  <div class="gallery-grid">
+    <div class="g-item"><img src="images/gallery-living.jpg" alt="Luxury living room" style="height:100%;"/><div class="g-overlay"></div><div class="g-label">Living Spaces</div></div>
+    <div class="g-item"><img src="images/gallery-kitchen.jpg" alt="Clean modern kitchen" style="height:100%;"/><div class="g-overlay"></div><div class="g-label">Kitchens</div></div>
+    <div class="g-item"><img src="images/gallery-bathroom.jpg" alt="Clean bathroom" style="height:100%;"/><div class="g-overlay"></div><div class="g-label">Bathrooms</div></div>
+    <div class="g-item"><img src="images/gallery-bedroom.jpg" alt="Pristine bedroom" style="height:100%;"/><div class="g-overlay"></div><div class="g-label">Bedrooms</div></div>
+    <div class="g-item"><img src="images/gallery-office.jpg" alt="Clean home office" style="height:100%;"/><div class="g-overlay"></div><div class="g-label">Home Offices</div></div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="test-inner">
+    <div class="sec-center reveal">
+      <div class="tag">Client Stories</div>
+      <h2>What Dallas homeowners<br>are <em>saying</em>.</h2>
+    </div>
+    <div class="test-grid">
+      <div class="t-card reveal"><div class="t-quote">"</div><p class="t-text">Lumé has completely changed how I feel when I come home. After two years of rotating cleaning companies, I finally found a team I trust completely.</p><div class="t-stars">★★★★★</div><div class="t-author"><div class="t-avatar"><img src="images/avatar-sarah.jpg" alt="Sarah M."/></div><div><div class="t-name">Sarah M.</div><div class="t-loc">Frisco, TX · Bi-Weekly Client</div></div></div></div>
+      <div class="t-card dark reveal d1"><div class="t-quote">"</div><p class="t-text">They cleaned a home I was moving out of so thoroughly I actually got my full deposit back — in a rental market where that almost never happens.</p><div class="t-stars">★★★★★</div><div class="t-author"><div class="t-avatar"><img src="images/avatar-james.jpg" alt="James K."/></div><div><div class="t-name">James K.</div><div class="t-loc">Plano, TX · Move-Out Clean</div></div></div></div>
+      <div class="t-card reveal d2"><div class="t-quote">"</div><p class="t-text">I have a toddler and two dogs. They use eco-friendly products and the house genuinely smells clean — not like chemicals. That matters so much to me.</p><div class="t-stars">★★★★★</div><div class="t-author"><div class="t-avatar"><img src="images/avatar-amanda.jpg" alt="Amanda L."/></div><div><div class="t-name">Amanda L.</div><div class="t-loc">McKinney, TX · Weekly Client</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section class="area-wrap" id="area">
+  <div class="area-box reveal">
+    <div class="area-text">
+      <div class="tag" style="color:var(--copper-lt);">Coverage</div>
+      <h2>Proudly serving the<br><em>Dallas–Fort Worth</em> metroplex.</h2>
+      <p>From the Park Cities to Prosper, our teams are strategically positioned across DFW to get to you quickly and reliably — whatever the day, whatever the need.</p>
+      <a href="#book" class="btn-light">Check My Zip Code →</a>
+    </div>
+    <div class="cities">
+      <div class="city">Allen</div><div class="city">Frisco</div>
+      <div class="city">Plano</div><div class="city">McKinney</div>
+      <div class="city">Dallas</div><div class="city">Prosper</div>
+      <div class="city">Richardson</div><div class="city">Garland</div>
+      <div class="city">Southlake</div><div class="city">Colleyville</div>
+      <div class="city">Highland Park</div><div class="city">University Park</div>
+      <div class="city">Addison</div><div class="city">Coppell</div>
+      <div class="city">Irving</div><div class="city">Arlington</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-inner reveal">
+    <div class="tag" style="color:var(--copper-lt);">Limited Availability</div>
+    <h2>Ready for a home that feels like<br><em>a breath of fresh air?</em></h2>
+    <p>New clients get 20% off their first clean. Slots fill fast — especially on weekends. Book your free estimate now and we'll hold your spot.</p>
+    <div class="cta-btns">
+      <a href="#book" class="btn-ca">Get 20% Off Your First Clean</a>
+      <a href="tel:+19725550100" class="btn-cb">Call (972) 555-0100</a>
+    </div>
+    <p class="cta-fine">✓ No contracts &nbsp;·&nbsp; ✓ 100% Satisfaction Guarantee &nbsp;·&nbsp; ✓ Cancel anytime</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Lumé</div>
+        <p class="footer-tag">Premium residential cleaning for Dallas–Fort Worth homeowners who deserve better.</p>
+        <div class="footer-social">
+          <a href="#" class="soc">f</a>
+          <a href="#" class="soc">in</a>
+          <a href="#" class="soc">ig</a>
+          <a href="#" class="soc">g</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul><li><a href="#">Standard Cleaning</a></li><li><a href="#">Deep Cleaning</a></li><li><a href="#">Move In / Move Out</a></li><li><a href="#">Post-Construction</a></li><li><a href="#">Recurring Plans</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul><li><a href="#">About Us</a></li><li><a href="#">Our Team</a></li><li><a href="#">Reviews</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="f-contact"><span>→</span><div><strong>(972) 555-0100</strong><br>Mon–Sat, 8am–6pm</div></div>
+        <div class="f-contact"><span>→</span><div><strong>hello@lumeclean.com</strong></div></div>
+        <div class="f-contact"><span>→</span><div>Serving All of DFW<br>Allen, TX Based</div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Lumé Cleaning Co. All rights reserved.</p>
+      <div><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Accessibility</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- FAB phone button with SVG phone icon -->
+<a href="tel:+19725550100" class="fab" title="Call Us">
+  <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.07 2.82 2 2 0 012.06 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+</a>
+
+<script>
+  // Sticky nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+  // Hamburger
+  const hbg = document.getElementById('hbg');
+  const mobileNav = document.getElementById('mobileNav');
+  hbg.addEventListener('click', () => {
+    const open = hbg.classList.toggle('open');
+    mobileNav.style.display = 'flex';
+    requestAnimationFrame(() => mobileNav.classList.toggle('open', open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  document.querySelectorAll('.ml').forEach(l => l.addEventListener('click', () => {
+    hbg.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }));
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

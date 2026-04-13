@@ -1,0 +1,544 @@
+/**
+ * Dallas Web Pro — Components
+ * Buttons, cards, form elements, browser chrome, testimonials.
+ */
+
+/* ─── BUTTONS ───────────────────────────────── */
+
+/* Primary — dark fill */
+.btn-primary {
+  display: inline-block;
+  background: var(--dw-dark);
+  color: var(--dw-white);
+  border: none;
+  padding: 16px 32px;
+  font-family: var(--dw-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-radius: var(--dw-radius);
+  cursor: pointer;
+  transition:
+    background 0.3s var(--dw-ease),
+    transform   0.25s var(--dw-ease);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: var(--dw-amber);
+  transform: translateY(-2px);
+}
+
+/* Accent — amber fill */
+.btn-accent {
+  display: inline-block;
+  background: var(--dw-amber);
+  color: var(--dw-white);
+  border: none;
+  padding: 16px 32px;
+  font-family: var(--dw-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-radius: var(--dw-radius);
+  cursor: pointer;
+  transition:
+    background 0.3s var(--dw-ease),
+    transform   0.25s var(--dw-ease);
+  text-align: center;
+}
+
+.btn-accent:hover {
+  background: #b06e24;
+  transform: translateY(-2px);
+}
+
+/* Ghost — text + arrow */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--dw-text-lt);
+  font-family: var(--dw-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.btn-ghost:hover {
+  color: var(--dw-amber);
+}
+
+.btn-ghost svg {
+  transition: transform 0.25s var(--dw-ease);
+}
+
+.btn-ghost:hover svg {
+  transform: translateX(5px);
+}
+
+/* Outline light — for dark sections */
+.btn-outline-lt {
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--dw-white);
+  padding: 14px 28px;
+  font-family: var(--dw-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: var(--dw-radius);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-outline-lt:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Large variant */
+.btn-lg {
+  padding: 18px 40px;
+  font-size: 12px;
+}
+
+/* ─── SERVICE CARDS ─────────────────────────── */
+.svc-card {
+  background: var(--dw-white);
+  border-radius: var(--dw-radius);
+  padding: 48px 40px 44px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--dw-shadow-sm);
+  transition:
+    transform    0.45s var(--dw-ease),
+    box-shadow   0.45s var(--dw-ease);
+}
+
+.svc-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--dw-amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--dw-ease);
+}
+
+.svc-card:hover {
+  transform: translateY(-7px);
+  box-shadow: var(--dw-shadow-md);
+}
+
+.svc-card:hover::after {
+  transform: scaleX(1);
+}
+
+/* Dark / featured card */
+.svc-card-feat {
+  background: var(--dw-dark);
+}
+
+.svc-card-feat::after {
+  background: var(--dw-amber-lt);
+}
+
+/* Card internals */
+.svc-num {
+  display: block;
+  font-family: var(--dw-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--dw-amber);
+  margin-bottom: 28px;
+}
+
+.svc-card-feat .svc-num {
+  color: var(--dw-amber-lt);
+  opacity: 0.7;
+}
+
+.svc-icon {
+  margin-bottom: 24px;
+}
+
+.svc-title {
+  font-family: var(--dw-serif);
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--dw-dark);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.svc-card-feat .svc-title { color: var(--dw-white); }
+
+.svc-body {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.88;
+  color: var(--dw-text-lt);
+  margin-bottom: 32px;
+}
+
+.svc-card-feat .svc-body { color: var(--dw-slate); }
+
+.svc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--dw-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dw-amber);
+  transition: gap 0.25s var(--dw-ease);
+}
+
+.svc-card-feat .svc-link { color: var(--dw-amber-lt); }
+
+.svc-link:hover { gap: 14px; }
+
+/* ─── PORTFOLIO CARDS ───────────────────────── */
+.port-item {
+  background: var(--dw-white);
+  border-radius: var(--dw-radius);
+  overflow: hidden;
+  box-shadow: var(--dw-shadow-sm);
+  transition:
+    transform  0.45s var(--dw-ease),
+    box-shadow 0.45s var(--dw-ease);
+  cursor: pointer;
+}
+
+.port-item:hover {
+  transform: translateY(-7px);
+  box-shadow: var(--dw-shadow-md);
+}
+
+.port-img-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.port-img {
+  width: 100%;
+  height: 218px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.75s var(--dw-ease);
+}
+
+.port-item:hover .port-img {
+  transform: scale(1.05);
+}
+
+/* Browser chrome strip */
+.port-chrome {
+  background: #EEEEED;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #E3E2E0;
+}
+
+.b-dots { display: flex; gap: 5px; flex-shrink: 0; }
+.b-dot  { width: 9px; height: 9px; border-radius: 50%; }
+.b-dot-r { background: #FF5F57; }
+.b-dot-y { background: #FFBD2E; }
+.b-dot-g { background: #28CA41; }
+
+.b-url,
+.port-url {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 3px;
+  padding: 3px 9px;
+  font-size: 10px;
+  font-family: var(--dw-sans);
+  color: #AEADAB;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.port-meta {
+  padding: 18px 22px 22px;
+}
+
+.port-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dw-amber);
+  margin-bottom: 6px;
+}
+
+.port-meta h4 {
+  font-family: var(--dw-serif);
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--dw-dark);
+  letter-spacing: -0.01em;
+}
+
+.port-result {
+  font-size: 11px;
+  color: var(--dw-warm-gray);
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* ─── TESTIMONIAL CARDS ─────────────────────── */
+.testi-card {
+  background: var(--dw-white);
+  border-radius: var(--dw-radius);
+  padding: 44px 40px;
+  box-shadow: var(--dw-shadow-sm);
+  transition:
+    transform  0.4s var(--dw-ease),
+    box-shadow 0.4s var(--dw-ease);
+}
+
+.testi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--dw-shadow-md);
+}
+
+.testi-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 22px;
+}
+
+.testi-star {
+  width: 13px;
+  height: 13px;
+  fill: var(--dw-amber);
+  flex-shrink: 0;
+}
+
+.testi-quote {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.88;
+  color: var(--dw-text-lt);
+  font-style: italic;
+  margin-bottom: 30px;
+}
+
+.testi-quote::before { content: '\201C'; }
+.testi-quote::after  { content: '\201D'; }
+
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border-top: 1px solid var(--dw-cream);
+  padding-top: 20px;
+}
+
+.testi-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--dw-cream);
+}
+
+.testi-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testi-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dw-dark);
+  letter-spacing: 0.02em;
+}
+
+.testi-co {
+  font-size: 11px;
+  color: var(--dw-warm-gray);
+  margin-top: 2px;
+}
+
+/* ─── FORM ELEMENTS ─────────────────────────── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--dw-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--dw-radius);
+  padding: 13px 16px;
+  font-family: var(--dw-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--dw-white);
+  outline: none;
+  transition:
+    border-color 0.3s,
+    background   0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--dw-amber);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.form-group select option {
+  background: var(--dw-dark);
+  color: var(--dw-white);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.btn-submit {
+  width: 100%;
+  background: var(--dw-amber);
+  color: var(--dw-white);
+  border: none;
+  padding: 16px;
+  font-family: var(--dw-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: var(--dw-radius);
+  cursor: pointer;
+  margin-top: 8px;
+  transition:
+    background 0.3s var(--dw-ease),
+    transform   0.25s var(--dw-ease);
+}
+
+.btn-submit:hover {
+  background: #b06e24;
+  transform: translateY(-2px);
+}
+
+.form-note {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.22);
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.65;
+}
+
+/* Forminator Pro overrides — match our form style */
+.contact-form .forminator-ui.forminator-custom-form {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.contact-form .forminator-field input,
+.contact-form .forminator-field select,
+.contact-form .forminator-field textarea {
+  background: rgba(255, 255, 255, 0.055) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-radius: var(--dw-radius) !important;
+  color: var(--dw-white) !important;
+  font-family: var(--dw-sans) !important;
+  font-weight: 300 !important;
+  font-size: 13px !important;
+  padding: 13px 16px !important;
+  transition: border-color 0.3s !important;
+}
+
+.contact-form .forminator-field input:focus,
+.contact-form .forminator-field select:focus,
+.contact-form .forminator-field textarea:focus {
+  border-color: var(--dw-amber) !important;
+  background: rgba(255, 255, 255, 0.075) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.contact-form .forminator-field label {
+  font-family: var(--dw-sans) !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.17em !important;
+  text-transform: uppercase !important;
+  color: rgba(255, 255, 255, 0.38) !important;
+}
+
+.contact-form .forminator-btn-submit {
+  width: 100% !important;
+  background: var(--dw-amber) !important;
+  color: var(--dw-white) !important;
+  border: none !important;
+  padding: 16px !important;
+  font-family: var(--dw-sans) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  border-radius: var(--dw-radius) !important;
+  box-shadow: none !important;
+  transition: background 0.3s !important;
+}
+
+.contact-form .forminator-btn-submit:hover {
+  background: #b06e24 !important;
+}
+
+@media (max-width: 768px) {
+  .form-row { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,284 @@
+/**
+ * Dallas Web Pro — Global Styles
+ * Reset, base, typography, utility classes, scroll reveal.
+ */
+
+/* ─── RESET ─────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--dw-bg);
+  color: var(--dw-text);
+  font-family: var(--dw-sans);
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img { object-fit: cover; }
+
+/* Prevent inline SVGs from inheriting img width:100% rules */
+svg {
+  display: inline-block;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+/* Only content/hero images should stretch — never icon SVGs */
+img:not([class]) { width: 100%; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol { list-style: none; }
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+/* ─── SCROLLBAR ─────────────────────────────── */
+::-webkit-scrollbar          { width: 5px; }
+::-webkit-scrollbar-track    { background: var(--dw-cream); }
+::-webkit-scrollbar-thumb    { background: var(--dw-amber-lt); border-radius: 10px; }
+
+/* ─── TYPOGRAPHY CLASSES ────────────────────── */
+
+/* Display — hero H1 */
+.dwp-display {
+  font-family: var(--dw-serif);
+  font-size: clamp(54px, 5.8vw, 94px);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: var(--dw-dark);
+}
+
+/* Section heading */
+.sec-heading {
+  font-family: var(--dw-serif);
+  font-size: clamp(38px, 3.6vw, 62px);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  color: var(--dw-dark);
+}
+
+/* Heading on dark bg */
+.sec-heading-lt { color: var(--dw-white); }
+
+/* Italic accent within headings */
+.sec-heading em,
+.dwp-display em,
+.about-heading em,
+.contact-heading em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--dw-amber);
+}
+
+.sec-heading-lt em { color: var(--dw-amber-lt); }
+
+/* Body copy */
+.sec-sub {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.82;
+  color: var(--dw-text-lt);
+}
+.sec-sub-lt { color: var(--dw-slate); }
+
+/* ─── EYEBROW TAG ───────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--dw-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--dw-amber);
+  margin-bottom: 20px;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--dw-amber);
+  flex-shrink: 0;
+}
+
+/* Light variant — for dark sections */
+.eyebrow-lt {
+  color: var(--dw-amber-lt);
+}
+.eyebrow-lt::before {
+  background: var(--dw-amber-lt);
+}
+
+/* ─── LAYOUT UTILITIES ──────────────────────── */
+
+/* Max-width container */
+.wrap {
+  max-width: var(--dw-container);
+  margin-inline: auto;
+  padding-inline: var(--dw-wrap-px);
+}
+
+/* Content-width container (articles, page text) */
+.content-wrap {
+  max-width: var(--dw-content);
+  margin-inline: auto;
+  padding-inline: var(--dw-wrap-px);
+}
+
+/* Standard section padding */
+.dwp-section {
+  padding-block: var(--dw-space-xl);
+}
+
+/* Alternating background */
+.bg-cream  { background: var(--dw-cream); }
+.bg-dark   { background: var(--dw-dark); }
+.bg-ivory  { background: var(--dw-bg); }
+.bg-deep   { background: var(--dw-dark-deep); }
+
+/* ─── GRID UTILITIES ────────────────────────── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+@media (max-width: 1100px) {
+  .grid-2 { gap: 48px; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .grid-2 { grid-template-columns: 1fr; gap: 36px; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ─── SCROLL REVEAL ─────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity  0.88s var(--dw-ease),
+    transform 0.88s var(--dw-ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays */
+.rev-d1 { transition-delay: 0.09s; }
+.rev-d2 { transition-delay: 0.18s; }
+.rev-d3 { transition-delay: 0.27s; }
+.rev-d4 { transition-delay: 0.36s; }
+.rev-d5 { transition-delay: 0.45s; }
+
+/* ─── IMAGE HOVER ZOOM (wrapper class) ──────── */
+.img-hover {
+  overflow: hidden;
+  border-radius: var(--dw-radius);
+}
+
+.img-hover img {
+  transition: transform 0.75s var(--dw-ease);
+}
+
+.img-hover:hover img {
+  transform: scale(1.05);
+}
+
+/* ─── STAT BADGE ────────────────────────────── */
+.stat-badge {
+  background: var(--dw-amber);
+  color: var(--dw-white);
+  padding: 20px 24px;
+  border-radius: var(--dw-radius);
+  box-shadow: var(--dw-shadow-amber);
+  text-align: center;
+}
+
+.stat-badge strong {
+  display: block;
+  font-family: var(--dw-serif);
+  font-size: 38px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.stat-badge span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* ─── SCREEN READER UTILITY ─────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── GUTENBERG ALIGNMENT SUPPORT ──────────── */
+.alignfull {
+  margin-inline: calc(-1 * var(--dw-wrap-px));
+}
+
+.alignwide {
+  max-width: calc(var(--dw-container) + 2 * var(--dw-wrap-px));
+  margin-inline: auto;
+}

@@ -1,0 +1,82 @@
+/**
+ * ═══════════════════════════════════════════════════
+ *  EARNED AUTHORITY — DESIGN TOKENS
+ *  Dallas Web Pro | dallaswebpro.net
+ *  Designer: Jerry Schrader | jerryschraderconsulting.com
+ *
+ *  Override these per-project. Never hard-code values
+ *  outside this file — always reference tokens.
+ * ═══════════════════════════════════════════════════
+ */
+
+:root {
+
+  /* ─── Core Palette ─────────────────────────── */
+  --dw-bg:          #F5F3EE;   /* Page background — warm ivory */
+  --dw-cream:       #EAE6DE;   /* Alternating section background */
+  --dw-dark:        #1C2B3A;   /* Primary dark — nav, footers, CTA bg */
+  --dw-dark-mid:    #2E4155;   /* Cards on dark sections */
+  --dw-dark-deep:   #131F2B;   /* Footer deep background */
+  --dw-amber:       #C97B2A;   /* Primary accent — buttons, icons, highlights */
+  --dw-amber-lt:    #E4A96A;   /* Light accent — italic text on dark, hover */
+  --dw-amber-dim:   rgba(201, 123, 42, 0.12);  /* Subtle amber tint */
+  --dw-slate:       #6B7E8F;   /* Muted text on dark backgrounds */
+  --dw-warm-gray:   #8A8279;   /* Secondary text on light backgrounds */
+  --dw-text:        #1A1917;   /* Primary body text */
+  --dw-text-lt:     #635E59;   /* Supporting body text */
+  --dw-white:       #FFFFFF;
+
+  /* ─── Typography ───────────────────────────── */
+  --dw-serif: 'Fraunces', Georgia, serif;       /* Display / headlines */
+  --dw-sans:  'Outfit', system-ui, sans-serif;  /* Body / UI */
+
+  /* ─── Spacing Scale ────────────────────────── */
+  --dw-space-xs:   12px;
+  --dw-space-sm:   24px;
+  --dw-space-md:   48px;
+  --dw-space-lg:   80px;
+  --dw-space-xl:   120px;
+  --dw-space-2xl:  160px;
+
+  /* ─── Border Radius ────────────────────────── */
+  --dw-radius-sm:  2px;
+  --dw-radius:     3px;
+  --dw-radius-md:  4px;
+  --dw-radius-lg:  6px;
+
+  /* ─── Easing ───────────────────────────────── */
+  --dw-ease:       cubic-bezier(0.16, 1, 0.3, 1);  /* expo-out — premium feel */
+  --dw-ease-std:   cubic-bezier(0.4, 0, 0.2, 1);   /* standard ease */
+
+  /* ─── Shadows ──────────────────────────────── */
+  --dw-shadow-sm:  0 8px 28px rgba(0, 0, 0, 0.07);
+  --dw-shadow-md:  0 20px 56px rgba(0, 0, 0, 0.13);
+  --dw-shadow-lg:  0 32px 80px rgba(0, 0, 0, 0.20);
+  --dw-shadow-amber: 0 16px 44px rgba(201, 123, 42, 0.38);
+
+  /* ─── Overlays ─────────────────────────────── */
+  --dw-overlay-hero: linear-gradient(
+    to bottom,
+    rgba(10, 18, 13, 0.18) 0%,
+    rgba(10, 18, 13, 0.08) 40%,
+    rgba(10, 18, 13, 0.65) 100%
+  );
+
+  /* ─── Layout ───────────────────────────────── */
+  --dw-container:   1360px;
+  --dw-content:     860px;
+  --dw-nav-height:  90px;
+  --dw-wrap-px:     64px;   /* Horizontal padding on .wrap */
+}
+
+/* Responsive token adjustments */
+@media (max-width: 1100px) {
+  :root { --dw-wrap-px: 48px; }
+}
+@media (max-width: 768px) {
+  :root {
+    --dw-wrap-px:   24px;
+    --dw-space-xl:  72px;
+    --dw-space-lg:  56px;
+  }
+}
