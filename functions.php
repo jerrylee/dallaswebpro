@@ -72,6 +72,15 @@ function dwp_enqueue_assets() {
 	// Buttons, cards, forms
 	wp_enqueue_style( 'dwp-components', $uri . '/assets/css/components.css', [ 'dwp-global' ], $ver );
 
+	// Reusable content widgets editors drop into Custom HTML blocks (pricing tiers, etc.)
+	$cc_path = get_template_directory() . '/assets/css/content-components.css';
+	wp_enqueue_style(
+		'dwp-content-components',
+		$uri . '/assets/css/content-components.css',
+		[ 'dwp-components' ],
+		file_exists( $cc_path ) ? filemtime( $cc_path ) : $ver
+	);
+
 	// Layout: nav, hero, sections, footer
 	wp_enqueue_style( 'dwp-layout',     $uri . '/assets/css/layout.css',     [ 'dwp-components' ], $ver );
 

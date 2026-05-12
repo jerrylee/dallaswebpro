@@ -1,0 +1,83 @@
+/**
+ * content-components.css — Dallas Web Pro
+ *
+ * Reusable styles for post/page content components. Each component is
+ * scoped with the .dwp- prefix and lives in its own clearly labeled
+ * section below. Drop the corresponding HTML markup into any Custom HTML
+ * block — no inline styles needed.
+ *
+ * NOTE: This file is for *editor-droppable content widgets* (pricing
+ * tables, callouts, feature lists, etc.). For theme-level UI primitives
+ * (buttons, cards, form elements), see components.css.
+ *
+ * To add a new component:
+ *   1. Append a new section at the bottom of this file.
+ *   2. Begin with a comment block showing the HTML markup contract.
+ *   3. Use the .dwp- prefix on every class to avoid collisions.
+ */
+
+/* ============================================================
+   Pricing Tiers
+   Markup: <div class="dwp-tiers">
+             <div class="dwp-tier [dwp-sweet-spot]">
+               <div class="dwp-tier-body">
+                 <h3>Tier name</h3>
+                 <p>Description.</p>
+                 <div class="dwp-fit">Who it's for.</div>
+               </div>
+               <div class="dwp-tier-price">$X – $Y</div>
+             </div>
+           </div>
+   ============================================================ */
+
+.dwp-tiers { margin: 2em 0; }
+
+.dwp-tier {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: center;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 14px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.dwp-tier:hover { border-color: #111; transform: translateX(2px); }
+
+.dwp-tier-body h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.15em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.dwp-tier-body p {
+  margin: 0 0 6px 0;
+  color: #444;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+.dwp-tier-body .dwp-fit {
+  font-size: 0.9em;
+  color: #666;
+  font-style: italic;
+}
+
+.dwp-tier-price {
+  font-size: 1.35em;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: right;
+  color: #111;
+  letter-spacing: -0.02em;
+}
+
+.dwp-tier.dwp-sweet-spot {
+  border: 2px solid #111;
+  background: #fafaf7;
+}
+
+@media (max-width: 720px) {
+  .dwp-tier { grid-template-columns: 1fr; gap: 10px; padding: 22px; }
+  .dwp-tier-price { text-align: left; font-size: 1.5em; }
+}
