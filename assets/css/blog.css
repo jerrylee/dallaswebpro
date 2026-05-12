@@ -5,10 +5,10 @@
  */
 
 /* ═══════════════════════════════════════════════════
-   1. BASE — body background for blog & single
+   1. BASE — body background for blog archive (dark)
+   Single posts keep the site's default light background.
 ═══════════════════════════════════════════════════ */
 body.blog,
-body.single-post,
 body.archive.category,
 body.archive.tag,
 body.archive.author,
@@ -704,10 +704,10 @@ body.archive.date {
 .sng-meta-divider { width: 1px; height: 14px; background: rgba(200,146,42,0.3); }
 
 /* ═══════════════════════════════════════════════════
-   9. SINGLE POST — BODY / PROSE
+   9. SINGLE POST — BODY / PROSE (light theme)
 ═══════════════════════════════════════════════════ */
 .sng-body-wrap {
-  background: #111820;
+  background: #F5F3EE;
   padding: 72px 0 80px;
 }
 .sng-layout {
@@ -718,48 +718,54 @@ body.archive.date {
 }
 
 .sng-prose {
-  color: rgba(255,255,255,0.82);
+  color: #1A1917;
   font-size: 1.05rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.85;
 }
 .sng-prose h2 {
   font-family: 'Fraunces', serif;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 400;
-  color: #fff;
+  color: #1C2B3A;
   margin: 56px 0 20px;
   line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 .sng-prose h3 {
   font-family: 'Fraunces', serif;
   font-size: 1.25rem;
-  font-weight: 400;
-  color: #fff;
+  font-weight: 500;
+  color: #1C2B3A;
   margin: 40px 0 16px;
 }
 .sng-prose p { margin-bottom: 28px; }
-.sng-prose p:first-child { font-size: 1.15rem; font-weight: 400; color: rgba(255,255,255,0.92); }
-.sng-prose a { color: #c8922a; text-decoration: underline; text-underline-offset: 3px; }
-.sng-prose a:hover { color: #e0a83a; }
+.sng-prose p:first-child {
+  font-size: 1.18rem;
+  font-weight: 400;
+  color: #1C2B3A;
+  line-height: 1.6;
+}
+.sng-prose a { color: #C97B2A; text-decoration: underline; text-underline-offset: 3px; }
+.sng-prose a:hover { color: #A6661C; }
 .sng-prose ul, .sng-prose ol {
   margin: 0 0 28px 24px;
-  color: rgba(255,255,255,0.8);
+  color: #1A1917;
 }
 .sng-prose li { margin-bottom: 10px; }
 .sng-prose blockquote {
-  border-left: 3px solid #c8922a;
+  border-left: 3px solid #C97B2A;
   padding: 20px 28px;
   margin: 40px 0;
-  background: rgba(200,146,42,0.06);
+  background: #EAE6DE;
   border-radius: 0 8px 8px 0;
   font-family: 'Fraunces', serif;
   font-size: 1.2rem;
   font-style: italic;
-  color: rgba(255,255,255,0.9);
+  color: #1C2B3A;
   line-height: 1.6;
 }
-.sng-prose strong { color: #fff; font-weight: 600; }
+.sng-prose strong { color: #1A1917; font-weight: 600; }
 .sng-prose img {
   width: 100%;
   border-radius: 12px;
@@ -767,12 +773,12 @@ body.archive.date {
 }
 .sng-prose hr {
   border: none;
-  border-top: 1px solid rgba(200,146,42,0.18);
+  border-top: 1px solid rgba(28,43,58,0.12);
   margin: 56px 0;
 }
 
 /* ═══════════════════════════════════════════════════
-  10. SINGLE POST — TAGS & POST NAV
+  10. SINGLE POST — TAGS & POST NAV (light theme)
 ═══════════════════════════════════════════════════ */
 .sng-tags {
   display: flex;
@@ -781,14 +787,14 @@ body.archive.date {
   flex-wrap: wrap;
   padding-top: 40px;
   margin-top: 56px;
-  border-top: 1px solid rgba(200,146,42,0.15);
+  border-top: 1px solid rgba(28,43,58,0.12);
 }
 .sng-tags-label {
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: rgba(26,25,23,0.55);
   margin-right: 4px;
 }
 .sng-tag-pill {
@@ -798,19 +804,19 @@ body.archive.date {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  background: rgba(200,146,42,0.08);
-  border: 1px solid rgba(200,146,42,0.2);
-  color: #c8922a;
-  transition: background 0.2s, border-color 0.2s;
+  background: rgba(201,123,42,0.1);
+  border: 1px solid rgba(201,123,42,0.3);
+  color: #C97B2A;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
-.sng-tag-pill:hover { background: rgba(200,146,42,0.18); border-color: rgba(200,146,42,0.45); }
+.sng-tag-pill:hover { background: rgba(201,123,42,0.18); border-color: rgba(201,123,42,0.5); color: #A6661C; }
 
 .sng-post-nav {
   display: flex;
   gap: 16px;
   margin-top: 48px;
   padding-top: 40px;
-  border-top: 1px solid rgba(200,146,42,0.15);
+  border-top: 1px solid rgba(28,43,58,0.12);
 }
 .sng-nav-btn {
   flex: 1;
@@ -818,19 +824,20 @@ body.archive.date {
   align-items: center;
   gap: 12px;
   padding: 20px 24px;
-  background: #1c2a3a;
-  border: 1px solid rgba(200,146,42,0.18);
+  background: #fff;
+  border: 1px solid rgba(28,43,58,0.1);
   border-radius: 12px;
-  color: rgba(255,255,255,0.75);
+  color: #1A1917;
   font-size: 0.85rem;
   line-height: 1.4;
-  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 14px rgba(28,43,58,0.06);
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .sng-nav-btn:hover {
-  border-color: rgba(200,146,42,0.45);
-  background: #1e2c3d;
+  border-color: rgba(201,123,42,0.45);
   transform: translateY(-2px);
-  color: #fff;
+  box-shadow: 0 12px 24px rgba(28,43,58,0.1);
+  color: #1C2B3A;
 }
 .sng-nav-btn em {
   display: block;
@@ -839,7 +846,7 @@ body.archive.date {
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #c8922a;
+  color: #C97B2A;
   margin-bottom: 4px;
 }
 .sng-nav-next { justify-content: flex-end; text-align: right; }
@@ -847,7 +854,7 @@ body.archive.date {
 .sng-nav-next span { order: 1; }
 
 /* ═══════════════════════════════════════════════════
-  11. SINGLE POST — SIDEBAR
+  11. SINGLE POST — SIDEBAR (light theme)
 ═══════════════════════════════════════════════════ */
 .sng-sidebar {
   position: sticky;
@@ -857,17 +864,18 @@ body.archive.date {
   gap: 20px;
 }
 .sng-widget {
-  background: #1c2a3a;
-  border: 1px solid rgba(200,146,42,0.18);
+  background: #fff;
+  border: 1px solid rgba(28,43,58,0.08);
   border-radius: 14px;
   padding: 28px;
+  box-shadow: 0 4px 14px rgba(28,43,58,0.06);
 }
 .sng-widget-title {
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #c8922a;
+  color: #C97B2A;
   margin-bottom: 18px;
 }
 .sng-author-card {
@@ -878,26 +886,26 @@ body.archive.date {
 .sng-author-avatar {
   width: 48px; height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #c8922a, #e0a83a);
+  background: linear-gradient(135deg, #C97B2A, #E4A96A);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.6rem;
   font-weight: 800;
   letter-spacing: 0.05em;
-  color: #111820;
+  color: #fff;
   flex-shrink: 0;
 }
 .sng-author-name {
   font-weight: 600;
   font-size: 0.9rem;
-  color: #fff;
+  color: #1C2B3A;
   margin-bottom: 6px;
 }
 .sng-author-bio {
   font-size: 0.78rem;
-  font-weight: 300;
-  color: rgba(255,255,255,0.55);
+  font-weight: 400;
+  color: #635E59;
   line-height: 1.6;
 }
 
@@ -906,17 +914,17 @@ body.archive.date {
   align-items: center;
   gap: 8px;
   padding: 14px 20px;
-  background: rgba(200,146,42,0.1);
-  border: 1px solid rgba(200,146,42,0.3);
+  background: rgba(201,123,42,0.1);
+  border: 1px solid rgba(201,123,42,0.3);
   border-radius: 8px;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #c8922a;
+  color: #C97B2A;
   transition: background 0.2s, transform 0.2s;
 }
-.sng-back-btn:hover { background: rgba(200,146,42,0.18); transform: translateX(-2px); }
+.sng-back-btn:hover { background: rgba(201,123,42,0.2); transform: translateX(-2px); color: #A6661C; }
 
 .sng-cat-list { list-style: none; display: flex; flex-direction: column; gap: 4px; padding: 0; margin: 0; }
 .sng-cat-link {
@@ -927,20 +935,20 @@ body.archive.date {
   border-radius: 6px;
   font-size: 0.8rem;
   font-weight: 400;
-  color: rgba(255,255,255,0.65);
+  color: #1A1917;
   transition: background 0.2s, color 0.2s;
 }
 .sng-cat-link:hover, .sng-cat-link.active {
-  background: rgba(200,146,42,0.1);
-  color: #c8922a;
+  background: rgba(201,123,42,0.1);
+  color: #C97B2A;
 }
 .sng-cat-count {
   font-size: 0.65rem;
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 100px;
-  background: rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.4);
+  background: rgba(28,43,58,0.06);
+  color: #635E59;
 }
 
 /* ═══════════════════════════════════════════════════
