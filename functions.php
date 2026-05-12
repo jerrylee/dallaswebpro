@@ -80,6 +80,11 @@ function dwp_enqueue_assets() {
 		wp_enqueue_style( 'dwp-pages', $uri . '/assets/css/pages.css', [ 'dwp-layout' ], $ver );
 	}
 
+	// Blog templates only — archive (home.php) + single post + post archives
+	if ( is_home() || is_singular( 'post' ) || is_category() || is_tag() || is_author() || is_date() ) {
+		wp_enqueue_style( 'dwp-blog', $uri . '/assets/css/blog.css', [ 'dwp-pages' ], $ver );
+	}
+
 	// Main theme stylesheet (empty — header only)
 	wp_enqueue_style( 'dwp-theme',      get_stylesheet_uri(),                [ 'dwp-layout' ], $ver );
 
@@ -212,19 +217,114 @@ add_action( 'init', 'dwp_register_post_types' );
    5. TAXONOMIES
 ═══════════════════════════════════════════════════ */
 function dwp_register_taxonomies() {
-	// Project categories (Service Type)
-	register_taxonomy( 'dwp_service_type', [ 'dwp_project' ], [
-		'labels' => [
-			'name'          => 'Service Types',
-			'singular_name' => 'Service Type',
-		],
-		'hierarchical'      => true,
-		'show_in_rest'      => true,
-		'show_admin_column' => true,
-		'rewrite'           => [ 'slug' => 'service-type' ],
-	] );
+
+    // Service Type (keep for backward compat, hidden from admin UI)
+    register_taxonomy( 'dwp_service_type', [ 'dwp_project' ], [
+        'labels'            => [
+            'name'          => 'Service Types',
+            'singular_name' => 'Service Type',
+        ],
+        'hierarchical'      => true,
+        'show_in_rest'      => true,
+        'show_admin_column' => false,
+        'show_ui'           => false,
+        'rewrite'           => [ 'slug' => 'service-type' ],
+    ] );
+
+    // Industry — the primary filter taxonomy
+    register_taxonomy( 'dwp_industry', [ 'dwp_project' ], [
+        'labels'            => [
+            'name'              => 'Industries',
+            'singular_name'     => 'Industry',
+            'add_new_item'      => 'Add Industry',
+            'edit_item'         => 'Edit Industry',
+            'search_items'      => 'Search Industries',
+            'not_found'         => 'No industries found.',
+        ],
+        'hierarchical'      => true,
+        'show_in_rest'      => true,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'rewrite'           => [ 'slug' => 'industry' ],
+    ] );
 }
 add_action( 'init', 'dwp_register_taxonomies' );
+
+/* ── One-time migration ── */
+
+/* ═══════════════════════════════════════════════════
+   5b. ONE-TIME MIGRATION — proj_industry ACF → dwp_industry taxonomy
+   Trigger: /wp-admin/?dwp_migrate=industry
+   Remove after running once.
+═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   21. SEED — My Favorite Attorney Portfolio Entry
+   Trigger: /wp-admin/?dwp_seed=my-favorite-attorney
+   Remove this block after running once.
+═══════════════════════════════════════════════════ */
+add_action( 'admin_init', 'dwp_seed_my_favorite_attorney' );
+function dwp_seed_my_favorite_attorney() {
+    if ( ! current_user_can( 'manage_options' ) ) return;
+    if ( ! isset( $_GET['dwp_seed'] ) || $_GET['dwp_seed'] !== 'my-favorite-attorney' ) return;
+
+    $existing = get_page_by_path( 'my-favorite-attorney', OBJECT, 'dwp_project' );
+    if ( $existing ) {
+        wp_die( '✅ My Favorite Attorney post already exists (ID ' . $existing->ID . '). <a href="' . admin_url() . '">← Back to admin</a>' );
+    }
+
+    $post_id = wp_insert_post( [
+        'post_type'   => 'dwp_project',
+        'post_title'  => 'My Favorite Attorney',
+        'post_name'   => 'my-favorite-attorney',
+        'post_status' => 'publish',
+        'menu_order'  => 91,
+    ], true );
+
+    if ( is_wp_error( $post_id ) ) {
+        wp_die( '❌ Failed: ' . $post_id->get_error_message() );
+    }
+
+    if ( function_exists( 'update_field' ) ) {
+        update_field( 'proj_client',       'My Favorite Attorney',                                         $post_id );
+        update_field( 'proj_url_label',    'myfavoriteattorney.com',                                       $post_id );
+        update_field( 'proj_url',          'https://myfavoriteattorney.com/',                              $post_id );
+        update_field( 'proj_address',      '00000 Main Street, Nowhere, NY 00000',                         $post_id );
+        update_field( 'proj_email',        'myfavoriteattorney@dallaswebpro.net',                          $post_id );
+        update_field( 'proj_industry',     'Attorneys',                                                    $post_id );
+        update_field( 'proj_accent_color', '#1B3A5C',                                                      $post_id );
+        update_field( 'proj_result',       'A commanding legal website built to establish authority and convert prospective clients.', $post_id );
+        update_field( 'proj_description',
+            "My Favorite Attorney needed a digital presence that commanded respect before a single word was read. " .
+            "We built a premium law firm website anchored in deep navy and gold — a palette that communicates trust, authority, and results. " .
+            "The site leads with case outcomes, spotlights practice areas with clarity, and makes it effortless for prospective clients to take the next step. " .
+            "No fluff, no filler — just a site that works as hard as the attorneys behind it.",
+            $post_id
+        );
+        update_field( 'proj_services',
+            'Custom Design, Copywriting, Mobile-First Development, Lead Generation Optimization, Local SEO',
+            $post_id
+        );
+        update_field( 'proj_featured_home', 1, $post_id );
+    }
+
+    // Assign "Attorneys" industry taxonomy term
+    $term = get_term_by( 'name', 'Attorneys', 'dwp_industry' );
+    if ( ! $term ) {
+        $ins = wp_insert_term( 'Attorneys', 'dwp_industry' );
+        $tid = is_wp_error( $ins ) ? 0 : $ins['term_id'];
+    } else {
+        $tid = $term->term_id;
+    }
+    if ( $tid ) wp_set_post_terms( $post_id, [ $tid ], 'dwp_industry' );
+
+    $msg  = '<h2 style="font-family:sans-serif">✅ My Favorite Attorney portfolio entry created!</h2>';
+    $msg .= '<p style="font-family:sans-serif">Post ID: <strong>' . $post_id . '</strong></p>';
+    $msg .= '<p style="font-family:sans-serif"><strong>Next step:</strong> Go to <a href="' . admin_url( 'post.php?post=' . $post_id . '&action=edit' ) . '">edit this post in WP Admin</a> and upload your desktop, iPad, and mobile screenshots into the ACF image fields.</p>';
+    $msg .= '<p style="font-family:sans-serif"><a href="' . get_permalink( $post_id ) . '">View portfolio entry →</a> &nbsp; <a href="' . admin_url( 'edit.php?post_type=dwp_project' ) . '">All projects →</a></p>';
+    wp_die( $msg );
+}
+
+/* -- / one time migration -- */
 
 
 /* ═══════════════════════════════════════════════════

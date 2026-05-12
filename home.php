@@ -358,65 +358,6 @@ $grid_posts  = array_slice( $all_posts, 1 );   // everything after the featured 
   </div><!-- /.wrap -->
 </section><!-- /.blg-newsletter -->
 
-<?php /* ─── INLINE STYLES: marquee + hidden card + page bg ─────────── */ ?>
-<style>
-/* Blog page dark background */
-body.blog { background: #111820; }
-
-/* Marquee band */
-.blg-marquee-band {
-  background: #c8922a;
-  padding: 14px 0;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.blg-marquee-track {
-  display: inline-flex;
-  animation: blgMarqueeScroll 28s linear infinite;
-}
-.blg-marquee-track:hover { animation-play-state: paused; }
-.blg-marquee-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 20px;
-  padding: 0 24px;
-  font-family: 'Outfit', system-ui, sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #111820;
-}
-.blg-marquee-dot {
-  width: 4px; height: 4px;
-  background: #111820;
-  border-radius: 50%;
-  opacity: 0.5;
-}
-@keyframes blgMarqueeScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Hidden card (filter) */
-.blg-post-card.blg-hidden { display: none; }
-
-/* Hide decorative lines before eyebrow labels */
-.blg-hero-eyebrow::before,
-.blg-section-eyebrow::before { display: none; }
-
-/* Scroll-reveal */
-.blg-reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
-}
-.blg-reveal.blg-visible {
-  opacity: 1;
-  transform: none;
-}
-</style>
-
 <?php /* ─── PAGE JS ─────────────────────────────────────────────────── */ ?>
 <script>
 (function () {

@@ -9,7 +9,7 @@
 
 get_header();
 
-$terms   = get_terms( [ 'taxonomy' => 'dwp_service_type', 'hide_empty' => true ] );
+$terms = get_terms( [ 'taxonomy' => 'dwp_industry', 'hide_empty' => true, 'orderby' => 'name' ] );
 $delays  = [ '', 'rev-d1', 'rev-d2', '', 'rev-d1', 'rev-d2' ];
 ?>
 
@@ -67,13 +67,18 @@ $delays  = [ '', 'rev-d1', 'rev-d2', '', 'rev-d1', 'rev-d2' ];
           $term_slugs = ( $post_terms && ! is_wp_error( $post_terms ) )
             ? implode( ' ', wp_list_pluck( $post_terms, 'slug' ) )
             : '';
+          $post_terms  = get_the_terms( get_the_ID(), 'dwp_industry' );
+          $term_slugs  = ( $post_terms && ! is_wp_error( $post_terms ) )
+              ? implode( ' ', wp_list_pluck( $post_terms, 'slug' ) )
+              : '';
+
           $term_labels = [];
           if ( $post_terms && ! is_wp_error( $post_terms ) ) {
-            foreach ( $post_terms as $t ) {
-              $term_labels[] = $t->name;
-            }
+              foreach ( $post_terms as $t ) {
+                  $term_labels[] = $t->name;
+              }
           } elseif ( $industry ) {
-            $term_labels[] = $industry;
+              $term_labels[] = $industry;
           }
       ?>
 
